@@ -34,6 +34,7 @@ namespace ADO
             {
                 Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
 
+
             }
             reader.Close();
             connection.Close();
