@@ -15,6 +15,7 @@ namespace ADO
         public Connector(string connection_string)
         {
             connection = new SqlConnection(connection_string);
+            //Console.WriteLine(connection.ConnectionString);
         }
         public void Select(string cmd)
         {
