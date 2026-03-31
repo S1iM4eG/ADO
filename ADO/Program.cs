@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using ADO.Select;
 
 namespace ADO
 {
@@ -17,10 +16,10 @@ namespace ADO
             Console.WriteLine(connection_string);
             connection = new SqlConnection(connection_string);
 
-            string cmd = "SELECT * FROM Directors";
-            Select select = new;
-            Console.WriteLine($"Количество записей: {Scalar("SELECT COUNT(*) FROM Directors")}");
-            Select("SELECT * FROM Movies");
+            Select select = new Select(connection);
+            Scalar scalar = new Scalar(connection);
+            Console.WriteLine($"Количество записей: {scalar.Execute("SELECT COUNT(*) FROM Directors")}");
+            select.Execute("SELECT * FROM Movies");
         }
 
         //static void Select(string cmd)
@@ -40,14 +39,14 @@ namespace ADO
         //    reader.Close();
         //    connection.Close();
         //}
-        static object Scalar(string cmd)
-        {
-            object value = null;
-            SqlCommand command = new SqlCommand(cmd, connection);
-            connection.Open();
-            value = command.ExecuteScalar();
-            connection.Close();
-            return value;
-        }
+        //static object Scalar(string cmd)
+        //{
+        //    object value = null;
+        //    SqlCommand command = new SqlCommand(cmd, connection);
+        //    connection.Open();
+        //    value = command.ExecuteScalar();
+        //    connection.Close();
+        //    return value;
+        //}
     }
 }
