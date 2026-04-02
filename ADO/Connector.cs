@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Net.Configuration;
 
 namespace ADO
 {
@@ -58,6 +59,7 @@ namespace ADO
             }
             reader.Close();
             connection.Close();
+
         }
         public void Select(string fields, string tables, string condition = "")
         {

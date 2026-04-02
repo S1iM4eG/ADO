@@ -10,16 +10,14 @@ namespace ADO
 {
     internal class Program
     {
-        static SqlConnection connection;
         static void Main(string[] args)
         {
-             string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MoviesPV_522;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            //string connection_string = ConfigurationManager.ConnectionStrings["Movies"].ConnectionString;
-
+            //string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MoviesPV_522;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connection_string = ConfigurationManager.ConnectionStrings["Movies"].ConnectionString;
             Connector connector = new Connector(connection_string);
 
             connector.Select("SELECT * FROM Directors");
-            //connector.Select("title, first_name, last_name", "Movies,Directors", "directors=directors_id");
+            connector.Select("title, first_name, last_name", "Movies,Directors", "director=director_id");
 
             //Console.WriteLine(connection_string);
             //connection = new SqlConnection(connection_string);
