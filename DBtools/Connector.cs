@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Net.Configuration;
 
 namespace DBtools
 {
@@ -117,6 +118,35 @@ namespace DBtools
             }
             if (Scalar($"SELECT {GetPrimaryKeyColumnName(table)} FROM {table} WHERE {condition}") == null)
                 Insert($"INSERT {table}({fields}) VALUES({values})");
+        }
+        public void Update(string cmd)
+        {
+            SqlCommand command = new SqlCommand(cmd, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public void Update(string table, string fields,string values, string condition)
+        {
+            string[] s_fields = fields.Split(',');
+            string[] s_values = values.Split(',');
+            if (s_fields.Length != s_values.Length) return;
+            string parsed = "";
+            for (int i = 0; i < s_fields.Length; i++)
+            {
+                parsed += $"{s_fields[i]}={ParseValue(s_values[i])}";
+                if (i != s_values.Length - 1) parsed += ",";
+            }
+            string cmd = ($"UPDATE {table} SET {parsed} WHERE {condition}");
+            Update(cmd);
+        }
+        string ParseValue(string value)
+        {
+            if(value.Length >1)
+            {
+                if (value[0] != 'N' && value[1] != '\'') value = $"N'{value}'";
+            }
+            return value;
         }
     }
 }
