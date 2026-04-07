@@ -1,7 +1,7 @@
 ﻿using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Configuration;
@@ -19,8 +19,9 @@ namespace DBtools
             connection = new SqlConnection(connection_string);
             Console.WriteLine(connection.ConnectionString);
         }
-        public void Select(string cmd)
+        public DataTable Select(string cmd)
         {
+            DataTable table = new DataTable();
             SqlCommand command = new SqlCommand(cmd, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -45,6 +46,7 @@ namespace DBtools
             reader = command.ExecuteReader();
             for (int i = 0; i < reader.FieldCount; i++)
             {
+                table.Columns.Add(reader.GetName(i));
                 Console.Write($"{reader.GetName(i).PadRight(string_sizes[i])}");
                 //if (reader.GetName(i).ToString().Length > string_sizes[i]) string_sizes[i] = reader.GetName(i).ToString().Length + 5;
             }
@@ -53,14 +55,20 @@ namespace DBtools
 
             while (reader.Read())
             {
+                DataRow row = table.NewRow();
                 //Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
                 for (int i = 0; i < reader.FieldCount; i++)
+                {
                     Console.Write(reader[i].ToString().PadRight(string_sizes[i]));
+                    row[i] = reader[i];
+                }
                 Console.WriteLine();
+                table.Rows.Add(row);
+              
             }
             reader.Close();
             connection.Close();
-
+            return table;
         }
         public void Select(string fields, string tables, string condition = "")
         {
