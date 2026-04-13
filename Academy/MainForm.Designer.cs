@@ -32,6 +32,8 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageStudents = new System.Windows.Forms.TabPage();
+            this.cbStudentDirection = new System.Windows.Forms.ComboBox();
+            this.buttonAddStudent = new System.Windows.Forms.Button();
             this.cbStudentsGroups = new System.Windows.Forms.ComboBox();
             this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.tabPageGroups = new System.Windows.Forms.TabPage();
@@ -43,8 +45,6 @@
             this.dgvDisciplines = new System.Windows.Forms.DataGridView();
             this.tabPageTeachers = new System.Windows.Forms.TabPage();
             this.dgvTeachers = new System.Windows.Forms.DataGridView();
-            this.cbStudentsDirections = new System.Windows.Forms.ComboBox();
-            this.buttonAddStudent = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageStudents.SuspendLayout();
@@ -72,7 +72,7 @@
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(127, 17);
             this.toolStripStatusLabel.Text = "toolStripStatusLabel1";
             // 
             // tabControl
@@ -92,6 +92,7 @@
             // 
             // tabPageStudents
             // 
+            this.tabPageStudents.Controls.Add(this.cbStudentDirection);
             this.tabPageStudents.Controls.Add(this.buttonAddStudent);
             this.tabPageStudents.Controls.Add(this.cbStudentsGroups);
             this.tabPageStudents.Controls.Add(this.dgvStudents);
@@ -102,6 +103,28 @@
             this.tabPageStudents.TabIndex = 0;
             this.tabPageStudents.Text = "Students";
             this.tabPageStudents.UseVisualStyleBackColor = true;
+            // 
+            // cbStudentDirection
+            // 
+            this.cbStudentDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStudentDirection.FormattingEnabled = true;
+            this.cbStudentDirection.Location = new System.Drawing.Point(313, 8);
+            this.cbStudentDirection.Name = "cbStudentDirection";
+            this.cbStudentDirection.Size = new System.Drawing.Size(287, 21);
+            this.cbStudentDirection.TabIndex = 4;
+            this.cbStudentDirection.SelectedIndexChanged += new System.EventHandler(this.cbStudentDirection_SelectedIndexChanged);
+            // 
+            // buttonAddStudent
+            // 
+            this.buttonAddStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddStudent.Location = new System.Drawing.Point(671, 8);
+            this.buttonAddStudent.Name = "buttonAddStudent";
+            this.buttonAddStudent.Size = new System.Drawing.Size(75, 21);
+            this.buttonAddStudent.TabIndex = 3;
+            this.buttonAddStudent.Text = "Добавить";
+            this.buttonAddStudent.UseVisualStyleBackColor = true;
+            this.buttonAddStudent.Click += new System.EventHandler(this.buttonAddStudent_Click);
             // 
             // cbStudentsGroups
             // 
@@ -161,7 +184,6 @@
             // 
             // tabPageDirections
             // 
-            this.tabPageDirections.Controls.Add(this.cbStudentsDirections);
             this.tabPageDirections.Controls.Add(this.dgvDirections);
             this.tabPageDirections.Location = new System.Drawing.Point(4, 22);
             this.tabPageDirections.Name = "tabPageDirections";
@@ -229,28 +251,6 @@
             this.dgvTeachers.Size = new System.Drawing.Size(740, 387);
             this.dgvTeachers.TabIndex = 1;
             // 
-            // cbStudentsDirections
-            // 
-            this.cbStudentsDirections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStudentsDirections.FormattingEnabled = true;
-            this.cbStudentsDirections.Location = new System.Drawing.Point(8, 8);
-            this.cbStudentsDirections.Name = "cbStudentsDirections";
-            this.cbStudentsDirections.Size = new System.Drawing.Size(287, 21);
-            this.cbStudentsDirections.TabIndex = 1;
-            this.cbStudentsDirections.SelectionChangeCommitted += new System.EventHandler(this.cbStudentsDirections_SelectionChangeCommitted);
-            // 
-            // buttonAddStudent
-            // 
-            this.buttonAddStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddStudent.Location = new System.Drawing.Point(671, 8);
-            this.buttonAddStudent.Name = "buttonAddStudent";
-            this.buttonAddStudent.Size = new System.Drawing.Size(75, 21);
-            this.buttonAddStudent.TabIndex = 3;
-            this.buttonAddStudent.Text = "Добавить";
-            this.buttonAddStudent.UseVisualStyleBackColor = true;
-            this.buttonAddStudent.Click += new System.EventHandler(this.buttonAddStudent_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -295,8 +295,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ComboBox cbGroupsDirections;
         private System.Windows.Forms.ComboBox cbStudentsGroups;
-        private System.Windows.Forms.ComboBox cbStudentsDirections;
         private System.Windows.Forms.Button buttonAddStudent;
+        private System.Windows.Forms.ComboBox cbStudentDirection;
     }
 }
 
