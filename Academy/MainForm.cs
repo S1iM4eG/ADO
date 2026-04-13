@@ -49,6 +49,14 @@ namespace Academy
             cbGroupsDirections.DataSource = connector.Load("SELECT * From Directions");
             cbGroupsDirections.DisplayMember = "direction_name";
             cbGroupsDirections.ValueMember = "direction_id";
+
+            cbStudentsGroups.DisplayMember = "group_name";
+            cbStudentsGroups.ValueMember = "group_id";
+            cbStudentsGroups.DataSource = connector.Load(queries[1].ToString());
+
+            cbStudentsDirections.DisplayMember = "direction_name";
+            cbStudentsDirections.ValueMember = "direction_id";
+            cbStudentsDirections.DataSource = connector.Load("SELECT direction_id, direction_name FROM Directions");
         }
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,6 +65,8 @@ namespace Academy
             tables[i].DataSource = connector.Load(queries[i].ToString());
            // tables[i].DataSource = connector.Select("*", tabControl.SelectedTab.Text);
             toolStripStatusLabel.Text = $"Количество записей: {tables[i].RowCount-1}";
+
+            cbStudentsGroups.DataSource = connector.Load($"SELECT * FROM Groups");
         }
 
        
@@ -64,6 +74,25 @@ namespace Academy
         {
             dgvGroups.DataSource = connector.Load(queries[1].ToString() + $" AND direction={cbGroupsDirections.SelectedValue}");
             toolStripStatusLabel.Text = $"Количество записей: {dgvGroups.RowCount - 1}";
+        }
+        private void cbStudentsGroups_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            dgvStudents.DataSource = connector.Load(queries[0].ToString() + $"AND group_id={cbStudentsGroups.SelectedValue}");
+            toolStripStatusLabel.Text = $"Количество записей: {dgvStudents.RowCount - 1}";
+        }
+
+        private void cbStudentsDirections_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            dgvStudents.DataSource = connector.Load(queries[0].ToString() + $"AND direction_id={cbStudentsDirections.SelectedValue}");
+            cbStudentsGroups.DataSource = connector.Load($"SELECT * FROM Groups WHERE direction = {cbStudentsDirections.SelectedValue}");
+            toolStripStatusLabel.Text = $"Количество записей: {dgvStudents.RowCount - 1}";
+
+        }
+
+        private void buttonAddStudent_Click(object sender, EventArgs e)
+        {
+            StudentForm student = new StudentForm();
+            student.ShowDialog();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace DBtools
         {
             SqlCommand command = new SqlCommand(cmd, connection);
             connection.Open();
-            SqlDataReader reader = command.ExecuteReader(); 
+            SqlDataReader reader = command.ExecuteReader();
             DataTable table = new DataTable();
             table.Load(reader);
             reader.Close();
