@@ -99,11 +99,11 @@ namespace Academy
             if (form.ShowDialog() == DialogResult.OK) tabControl_SelectedIndexChanged(tabControl, null);
         }
 
-        private void dgvTeachers_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            int id = Convert.ToInt32(dgvTeachers.Rows[e.RowIndex].Cells[0].Value);
-            TeacherForm form = new TeacherForm(id);
-            if (form.ShowDialog() == DialogResult.OK) tabControl_SelectedIndexChanged(tabControl, null);
-        }
+    //    private void dgvTeachers_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+    //    {
+    //        int id = Convert.ToInt32(dgvTeachers.Rows[e.RowIndex].Cells[0].Value);
+    //        TeacherForm form = new TeacherForm(id);
+    //        if (form.ShowDialog() == DialogResult.OK) tabControl_SelectedIndexChanged(tabControl, null);
+    //    }
     }
 }

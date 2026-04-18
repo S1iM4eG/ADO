@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Drawing;
+using System.IO;
 
 namespace Academy.Models
 {
@@ -62,6 +63,12 @@ namespace Academy.Models
         public virtual string GetUpdateString()
         {
             return $"last_name=N'{last_name}',first_name=N'{first_name}',middle_name=N'{middle_name}',birth_date=N'{birth_date}',email=N'{email}',phone=N'{phone}'";
+        }
+        public byte[] SerializePhoto()
+        {
+            MemoryStream ms = new MemoryStream();
+            photo.Save(ms, photo.RawFormat);
+            return ms.ToArray();
         }
     }
 

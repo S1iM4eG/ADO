@@ -75,7 +75,7 @@ namespace DBtools
                 }
                 Console.WriteLine();
                 table.Rows.Add(row);
-              
+
             }
             reader.Close();
             connection.Close();
@@ -145,7 +145,7 @@ namespace DBtools
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void Update(string table, string fields,string values, string condition)
+        public void Update(string table, string fields, string values, string condition)
         {
             string[] s_fields = fields.Split(',');
             string[] s_values = values.Split(',');
@@ -162,13 +162,23 @@ namespace DBtools
         }
         string ParseValue(string value)
         {
-           
-            if(value.Length >1)
+
+            if (value.Length > 1)
             {
                 value = value.Trim(); //Мето Trim() удаляет пробелы в началае и в конце строки
                 if (value[0] != 'N' && value[1] != '\'') value = $"N'{value}'";
             }
             return value;
+        }
+
+        public void UploadPhoto(byte[] image, int id, string field, string table)
+        {
+            string cmd = $"UPDATE {table} SET {field}=@image WHERE {GetPrimaryKeyColumnName(table)}={id})";
+            SqlCommand command = new SqlCommand(cmd, connection);
+            command.Parameters.Add("@image", SqlDbType.VarBinary).Value = image;
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

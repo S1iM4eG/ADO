@@ -255,7 +255,6 @@
             this.dgvTeachers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTeachers.Size = new System.Drawing.Size(740, 387);
             this.dgvTeachers.TabIndex = 1;
-            this.dgvTeachers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTeachers_CellMouseDoubleClick);
             // 
             // MainForm
             // 

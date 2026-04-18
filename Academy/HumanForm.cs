@@ -43,5 +43,16 @@ namespace Academy
         {
             Compress();
         }
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog(); // Создаем окно выбора файла
+            dialog.Filter = "JPG files|*.jpg|PNG files|*.png|All image files|*.png;*.jpg;|All files|*.*"; // Настраиваем фильтры, которые будут отображать нужные типы файлов
+            // Фильтр - это строка, которая состоит из пар "Описание|Маска", разделенных символом "|". 
+            // Описание - это текст, который будет отображаться в окне выбора файла, а Маска - это шаблон, который определяет, какие файлы будут отображаться при выборе данного фильтра. 
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                pictureBoxPhoto.Image = Image.FromFile(dialog.FileName);
+            }
+        }
     }
 }
