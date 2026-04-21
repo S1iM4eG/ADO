@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
 
 namespace DBtools
 {
@@ -179,6 +181,26 @@ namespace DBtools
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+        }
+        public Image DownloadPhoto(int id, string table, string field)
+        {
+            Image photo = null;
+            string cmd = $"SELECT {field} FROM {table} WHERE {GetPrimaryKeyColumnName(table)}={id}";
+            SqlCommand command = new SqlCommand(cmd, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                if (!reader.IsDBNull(0))
+                {
+                    MemoryStream ms = new MemoryStream(reader[0] as byte[]);
+                    photo = Image.FromStream(ms);
+                    ms.Close();
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return photo;
         }
     }
 }
