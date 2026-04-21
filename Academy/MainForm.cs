@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Runtime.InteropServices;
 using System.Configuration;
 using DBtools;
 
@@ -38,6 +38,7 @@ namespace Academy
 
         public MainForm()
         {
+            AllocConsole();
             InitializeComponent();
 
             tables = new DataGridView[] { dgvStudents, dgvGroups, dgvDirections, dgvDisciplines, dgvTeachers };
@@ -58,6 +59,8 @@ namespace Academy
             cbStudentDirection.ValueMember = "direction_id";
             cbStudentDirection.DataSource = connector.Load("SELECT direction_id, direction_name FROM Directions");
         }
+        [DllImport("kernel32.dll")]
+        public static extern bool AllocConsole();
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             int i = (sender as TabControl).SelectedIndex;  //Получаем номер выбранной вкладки
